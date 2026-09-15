@@ -6,6 +6,8 @@
 <meta name="description" content="État des trémies de l'atelier A injection — Thermoplastic Tunisia, relevé du 15/09/2026.">
 <meta name="color-scheme" content="light dark">
 <title>État des hoppers Atelier A</title>
+<link rel="icon" href="logo.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.ico" sizes="32x32">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;700&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500&display=swap">
 </head>
@@ -42,7 +44,9 @@ body{
 .mono{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
 
 header{background:var(--surface);border-bottom:1px solid var(--line)}
-.hd{max-width:1060px;margin:0 auto;padding:calc(13px + env(safe-area-inset-top,0px)) 16px 13px}
+.hd{max-width:1060px;margin:0 auto;padding:calc(13px + env(safe-area-inset-top,0px)) 16px 13px;
+     display:flex;align-items:center;gap:11px}
+.logo{width:34px;height:34px;flex:0 0 auto;display:block}
 h1{
   font-family:"Barlow Semi Condensed","IBM Plex Sans",sans-serif;
   font-size:21px;font-weight:700;margin:0;line-height:1.15;text-wrap:balance;
@@ -110,8 +114,11 @@ main{max-width:1060px;margin:0 auto;padding-inline:16px;padding-block:16px calc(
 
 <header>
   <div class="hd">
+    <img class="logo" src="logo.svg" alt="Bilel Adel" width="34" height="34" decoding="async">
+    <div>
     <h1>État des hoppers &mdash; Atelier A Injection</h1>
     <span class="sub mono">Thermoplastic Tunisia &middot; 15/09/2026 &middot; 39 trémies &middot; 23 armoires</span>
+    </div>
   </div>
 </header>
 

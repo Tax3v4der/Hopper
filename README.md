@@ -8,6 +8,7 @@ Thermoplastic Tunisia. Page statique, mobile first, sans dépendance.
 - `index.html` — page unique (HTML + CSS + JS en ligne), ouvrable directement dans un navigateur
 - `img/` — photos de trémie (Mob2 et Mob3 partagent `img/mob23.jpg`), une par machine, repère machine incrusté en haut à droite
 - `cab/` — 23 photos d'armoire électrique, pour les trémies équipées d'un déshumidificateur
+- `logo.svg`, `favicon.ico` — logo Bilel Adel : en-tête de page et icône d'onglet
 
 ## Relevé du 15/09/2026 — 39 trémies
 
