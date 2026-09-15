@@ -53,7 +53,10 @@ main{max-width:1060px;margin:0 auto;padding-inline:16px;padding-block:16px calc(
 
 .sum{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:1px;background:var(--line-2);
      border:1px solid var(--line-2);border-radius:6px;overflow:hidden;margin-bottom:16px}
-.sum div{background:var(--surface);padding:9px 10px 10px}
+.sum .k{background:var(--surface);padding:9px 10px 10px;border:0;margin:0;width:100%;
+        font:inherit;color:inherit;text-align:left;cursor:pointer;display:block}
+.sum .k[aria-pressed="true"]{box-shadow:inset 0 0 0 2px var(--ink)}
+.sum .k:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
 .sum b{display:block;font-family:"Barlow Semi Condensed",sans-serif;font-size:26px;font-weight:700;
        line-height:1;font-variant-numeric:tabular-nums}
 .sum span{display:block;font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3);margin-top:3px;line-height:1.25}
@@ -113,12 +116,12 @@ main{max-width:1060px;margin:0 auto;padding-inline:16px;padding-block:16px calc(
 </header>
 
 <main>
-  <section class="sum" aria-label="Synthèse">
-    <div><b class="mono" id="k-all">39</b><span>Machines</span></div>
-    <div class="g"><b class="mono" id="k-ok">17</b><span>Séchage OK</span></div>
-    <div class="r"><b class="mono" id="k-bad">7</b><span>En panne</span></div>
-    <div class="a"><b class="mono" id="k-dry">14</b><span>Sans séchage</span></div>
-    <div class="y" id="t-unk" hidden><b class="mono" id="k-unk">0</b><span>État à relever</span></div>
+  <section class="sum" aria-label="Synthèse, filtres rapides">
+    <button type="button" class="k" data-k="all" aria-pressed="true"><b class="mono" id="k-all">39</b><span>Machines</span></button>
+    <button type="button" class="k g" data-k="ok" aria-pressed="false"><b class="mono" id="k-ok">17</b><span>Séchage OK</span></button>
+    <button type="button" class="k r" data-k="bad" aria-pressed="false"><b class="mono" id="k-bad">7</b><span>En panne</span></button>
+    <button type="button" class="k a" data-k="dry" aria-pressed="false"><b class="mono" id="k-dry">14</b><span>Sans séchage</span></button>
+    <button type="button" class="k y" id="t-unk" data-k="unknown" aria-pressed="false" hidden><b class="mono" id="k-unk">0</b><span>État à relever</span></button>
   </section>
 
   <nav class="bar" id="bar" aria-label="Filtrer par état"></nav>
@@ -143,7 +146,10 @@ const STATUS = {
 };
 const DATA = [{"id":"Mc1","slug":"mc01","status":"ok","t":"14/09 23:55","note":"","cab":"mc01"},{"id":"Mc2","slug":"mc02","status":"nodryer","t":"14/09 23:56","note":""},{"id":"Mc3","slug":"mc03","status":"nodryer","t":"14/09 23:56","note":""},{"id":"Mc4","slug":"mc04","status":"motor","t":"14/09 23:57","note":"","cab":"mc04"},{"id":"Mc5","slug":"mc05","status":"simple","t":"14/09 23:57","note":""},{"id":"Mc6","slug":"mc06","status":"nodryer","t":"14/09 23:57","note":""},{"id":"Mc7","slug":"mc07","status":"motor","t":"14/09 23:58","note":"","cab":"mc07"},{"id":"Mc8","slug":"mc08","status":"motor","t":"14/09 23:58","note":"","cab":"mc08"},{"id":"Mc9","slug":"mc09","status":"simple","t":"14/09 23:59","note":""},{"id":"Mc10","slug":"mc10","status":"motor","t":"14/09 23:59","note":"","cab":"mc10"},{"id":"Mc11","slug":"mc11","status":"ok","t":"14/09 23:59","note":"","cab":"mc11"},{"id":"Mc12","slug":"mc12","status":"ok","t":"15/09 00:12","note":"","cab":"mc12"},{"id":"Mc13","slug":"mc13","status":"simple","t":"15/09 00:12","note":""},{"id":"Mc14","slug":"mc14","status":"simple","t":"15/09 00:13","note":""},{"id":"Mc15","slug":"mc15","status":"nodryer","t":"15/09 00:13","note":""},{"id":"Mc16","slug":"mc16","status":"simple","t":"15/09 00:13","note":""},{"id":"Mc21","slug":"mc21","status":"ok","t":"15/09 00:43","note":"","cab":"mc21"},{"id":"Mc22","slug":"mc22","status":"ok","t":"15/09 00:43","note":"","cab":"mc22"},{"id":"Mc25","slug":"mc25","status":"heater","t":"15/09 00:44","note":"","cab":"mc25"},{"id":"Mc26","slug":"mc26","status":"ok","t":"15/09 00:44","note":"","cab":"mc26"},{"id":"Mc27","slug":"mc27","status":"ok","t":"15/09 00:44","note":"","cab":"mc27"},{"id":"Mc28","slug":"mc28","status":"motor","t":"15/09 00:45","note":"","cab":"mc28"},{"id":"Mc29","slug":"mc29","status":"ok","t":"15/09 00:55","note":"","cab":"mc29"},{"id":"Mc30","slug":"mc30","status":"ok","t":"15/09 00:55","note":"","cab":"mc30"},{"id":"Mc31","slug":"mc31","status":"simple","t":"15/09 00:55","note":""},{"id":"Mc32","slug":"mc32","status":"ok","t":"15/09 00:56","note":"","cab":"mc32"},{"id":"Mc33","slug":"mc33","status":"motor","t":"15/09 00:56","note":"","cab":"mc33"},{"id":"Mc34","slug":"mc34","status":"nodryer","t":"15/09 00:57","note":""},{"id":"Mc35","slug":"mc35","status":"ok","t":"15/09 00:57","note":"","cab":"mc35"},{"id":"Mc36","slug":"mc36","status":"nodryer","t":"15/09 00:57","note":""},{"id":"200","slug":"200","status":"ok","t":"15/09 00:58","note":"","cab":"200"},{"id":"Bat4","slug":"bat4","status":"simple","t":"15/09 03:46","note":""},{"id":"Bat5","slug":"bat5","status":"simple","t":"15/09 03:46","note":""},{"id":"Bat6","slug":"bat6","status":"ok","t":"15/09 03:46","note":"","cab":"bat6"},{"id":"Mob1","slug":"mob1","status":"ok","t":"14/09 23:57","note":"","cab":"mob1","mob":1},{"id":"Mob2","slug":"mob23","status":"ok","t":"15/09 00:58","note":"Photographiée avec Mob3.","cab":"mob2","mob":1},{"id":"Mob3","slug":"mob23","status":"ok","t":"15/09 00:58","note":"Photographiée avec Mob2.","cab":"mob3","mob":1},{"id":"Mob4","slug":"mob4","status":"ok","t":"15/09 00:59","note":"Neuve, repérée NEW. Mise en service faite.","mob":1},{"id":"Mob5","slug":"mob5","status":"pending","t":"15/09 01:01","note":"Neuve, repérée NEW2.","mob":1}];
 
-const grid=document.getElementById('grid'), bar=document.getElementById('bar'), none=document.getElementById('none');
+const grid=document.getElementById('grid'), bar=document.getElementById('bar'),
+      none=document.getElementById('none'), sum=document.querySelector('.sum');
+const GROUPS={bad:['motor','heater'], dry:['nodryer','simple']};
+const match=(m,k)=>k==='all' || (GROUPS[k] ? GROUPS[k].includes(m.status) : m.status===k);
 let active='all';
 
 const n = DATA.reduce((a,m)=>(a[m.status]=(a[m.status]||0)+1,a),{});
@@ -157,11 +163,14 @@ bar.innerHTML=[['all','Toutes',DATA.length],...Object.keys(STATUS).map(k=>[k,STA
   .filter(([,,c])=>c>0)
   .map(([k,l,c])=>`<button class="chip" type="button" data-k="${k}" aria-pressed="${k==='all'}">${l}<span class="c">${c}</span></button>`).join('');
 
-bar.addEventListener('click',e=>{
-  const b=e.target.closest('.chip'); if(!b) return;
-  active=b.dataset.k;
-  bar.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed',String(c.dataset.k===active)));
+function select(k){
+  active=k;
+  [...bar.querySelectorAll('.chip'), ...sum.querySelectorAll('.k')]
+    .forEach(el=>el.setAttribute('aria-pressed',String(el.dataset.k===active)));
   draw();
+}
+for(const el of [bar,sum]) el.addEventListener('click',e=>{
+  const b=e.target.closest('.chip,.k'); if(b) select(b.dataset.k);
 });
 
 function card(m){
@@ -181,7 +190,7 @@ function card(m){
 }
 
 function draw(){
-  const list = active==='all' ? DATA : DATA.filter(m=>m.status===active);
+  const list = DATA.filter(m=>match(m,active));
   let fixed=false, mobile=false;
   grid.innerHTML = list.map(m=>{
     let head='';
