@@ -22,8 +22,8 @@ Thermoplastic Tunisia. Page statique, mobile first, sans dépendance.
 | État à relever | 3 | Mob1, Mob2, Mob3 |
 
 Mc23 et Mc24 sont hors service et ne figurent pas au relevé.
-Les trémies mobiles ne sont pas incluses.
-Les armoires électriques ne concernent que les 20 machines équipées d'un
+Les trémies mobiles Mob1 à Mob5 sont incluses depuis le relevé du 15/09.
+Les armoires électriques ne concernent que les 23 trémies équipées d'un
 déshumidificateur : trémies simples et trémies sans déshumidificateur en sont exclues.
 
 ## À vérifier
