@@ -13,13 +13,12 @@ Thermoplastic Tunisia. Page statique, mobile first, sans dépendance.
 
 | État | Nb | Machines |
 |---|---|---|
-| Résistances et moteur OK | 14 | Mc1, Mc11, Mc12, Mc21, Mc22, Mc26, Mc27, Mc29, Mc30, Mc32, Mc35, 200, Bat6, Mob4 |
+| Résistances et moteur OK | 17 | Mc1, Mc11, Mc12, Mc21, Mc22, Mc26, Mc27, Mc29, Mc30, Mc32, Mc35, 200, Bat6, Mob1, Mob2, Mob3, Mob4 |
 | Moteur manquant | 6 | Mc4, Mc7, Mc8, Mc10, Mc28, Mc33 |
 | Résistance HS | 1 | Mc25 |
 | Trémie sans déshumidificateur | 6 | Mc2, Mc3, Mc6, Mc15, Mc34, Mc36 |
 | Trémie simple | 8 | Mc5, Mc9, Mc13, Mc14, Mc16, Mc31, Bat4, Bat5 |
 | Neuve, en attente de mise en service | 1 | Mob5 |
-| État à relever | 3 | Mob1, Mob2, Mob3 |
 
 Mc23 et Mc24 sont hors service et ne figurent pas au relevé.
 Les trémies mobiles Mob1 à Mob5 sont incluses depuis le relevé du 15/09.
@@ -27,8 +26,6 @@ Les armoires électriques ne concernent que les 23 trémies équipées d'un
 déshumidificateur : trémies simples et trémies sans déshumidificateur en sont exclues.
 
 ## À vérifier
-
-- L'état des trémies mobiles Mob1, Mob2 et Mob3 n'a pas encore été relevé.
 
 - Les 6 machines classées « sans déshumidificateur » sont déduites par élimination,
   pas relevées une par une. Mc1 était dans ce lot et s'est révélé conforme.
