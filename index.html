@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="État des trémies de l'atelier A injection — Thermoplastic Tunisia, relevé du 15/09/2026.">
+<meta name="color-scheme" content="light dark">
+<title>État des hoppers Atelier A</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;700&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500&display=swap">
+</head>
+<body>
+<style>
+:root{
+  --ground:#F1F3F4; --surface:#FFFFFF;
+  --ink:#121819; --ink-2:#4A585C; --ink-3:#7A888D;
+  --line:#D5DDDF; --line-2:#E5EBEC;
+  --accent:#B8860B;
+  --ok:#18704A; --crit:#A82A21; --warn:#93570A; --quiet:#5A686D;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#0C1214; --surface:#151D1F; --ink:#E3EBEC; --ink-2:#A0AEB2; --ink-3:#7B898E;
+    --line:#293638; --line-2:#1F2B2D; --accent:#E3B23C;
+    --ok:#5DBE8A; --crit:#EF8178; --warn:#DFA354; --quiet:#97A6AA;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0C1214; --surface:#151D1F; --ink:#E3EBEC; --ink-2:#A0AEB2; --ink-3:#7B898E;
+  --line:#293638; --line-2:#1F2B2D; --accent:#E3B23C;
+  --ok:#5DBE8A; --crit:#EF8178; --warn:#DFA354; --quiet:#97A6AA;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--ground); color:var(--ink);
+  font:400 15px/1.5 "IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  -webkit-text-size-adjust:100%;
+}
+.mono{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
+
+header{background:var(--surface);border-bottom:1px solid var(--line)}
+.hd{max-width:1060px;margin:0 auto;padding:13px 16px}
+h1{
+  font-family:"Barlow Semi Condensed","IBM Plex Sans",sans-serif;
+  font-size:21px;font-weight:700;margin:0;line-height:1.15;text-wrap:balance;
+}
+.sub{display:block;margin-top:3px;font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);font-weight:500}
+
+main{max-width:1060px;margin:0 auto;padding-inline:16px;padding-block:16px 48px}
+
+.sum{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line-2);
+     border:1px solid var(--line-2);border-radius:6px;overflow:hidden;margin-bottom:16px}
+.sum div{background:var(--surface);padding:9px 10px 10px}
+.sum b{display:block;font-family:"Barlow Semi Condensed",sans-serif;font-size:26px;font-weight:700;
+       line-height:1;font-variant-numeric:tabular-nums}
+.sum span{display:block;font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3);margin-top:3px;line-height:1.25}
+.sum .g b{color:var(--ok)} .sum .r b{color:var(--crit)} .sum .a b{color:var(--warn)}
+
+.bar{display:flex;gap:6px;overflow-x:auto;padding-bottom:9px;margin-bottom:12px}
+.chip{flex:0 0 auto;cursor:pointer;border:1px solid var(--line);background:var(--surface);color:var(--ink-2);
+      border-radius:4px;padding:6px 11px;font:500 13px/1 inherit;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.chip .c{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--ground)}
+.chip[aria-pressed="true"] .c{color:var(--ground);opacity:.7}
+.chip:focus-visible,.shot:focus-visible,.close:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+.grid{display:grid;grid-template-columns:1fr;gap:10px}
+@media(min-width:540px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:880px){.grid{grid-template-columns:repeat(3,1fr)}}
+
+.card{background:var(--surface);border:1px solid var(--line-2);border-left:3px solid var(--stripe);
+      border-radius:6px;overflow:hidden;display:flex;flex-direction:column}
+.s-ok{--stripe:var(--ok)} .s-motor,.s-heater{--stripe:var(--crit)}
+.s-nodryer{--stripe:var(--warn)} .s-simple{--stripe:var(--quiet)}
+
+.shot{display:block;width:100%;aspect-ratio:4/3;border:0;padding:0;margin:0;background:var(--line-2);cursor:zoom-in;overflow:hidden}
+.shot img{width:100%;height:100%;object-fit:cover;object-position:50% 38%;display:block}
+
+.meta{padding:9px 11px 11px;display:flex;flex-direction:column;gap:5px}
+.r1{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+.id{font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:16px}
+.tm{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.st{font-family:"Barlow Semi Condensed",sans-serif;font-size:14.5px;font-weight:600;line-height:1.2;color:var(--stripe)}
+.note{font-size:13px;color:var(--ink-2);margin:0}
+
+.none{padding:32px 0;text-align:center;color:var(--ink-3);font-size:14px}
+footer{margin-top:22px;padding-top:12px;border-top:1px solid var(--line);font-size:11.5px;color:var(--ink-3);line-height:1.65}
+
+.lb{position:fixed;inset:0;z-index:50;background:rgba(8,12,13,.94);display:flex;align-items:center;justify-content:center;padding:12px}
+.lb img{max-width:100%;max-height:100%;object-fit:contain}
+.close{position:absolute;top:calc(12px + env(safe-area-inset-top,0px));right:12px;width:38px;height:38px;
+       border:0;border-radius:4px;background:#fff;color:#111;font:600 17px/1 inherit;cursor:pointer}
+</style>
+
+<header>
+  <div class="hd">
+    <h1>État des hoppers &mdash; Atelier A Injection</h1>
+    <span class="sub mono">Thermoplastic Tunisia &middot; 15/09/2026 &middot; 31 machines</span>
+  </div>
+</header>
+
+<main>
+  <section class="sum" aria-label="Synthèse">
+    <div><b class="mono" id="k-all">31</b><span>Relevées</span></div>
+    <div class="g"><b class="mono" id="k-ok">12</b><span>Séchage OK</span></div>
+    <div class="r"><b class="mono" id="k-bad">7</b><span>En panne</span></div>
+    <div class="a"><b class="mono" id="k-dry">12</b><span>Sans séchage</span></div>
+  </section>
+
+  <nav class="bar" id="bar" aria-label="Filtrer par état"></nav>
+  <div class="grid" id="grid"></div>
+  <p class="none" id="none" hidden>Aucune machine dans ce filtre.</p>
+
+  <footer>
+    « Résistances et moteur OK » = trémie séchante contrôlée, résistances et moteur en marche.<br>
+    Le numéro en haut à droite de chaque photo est le repère machine. Mc23 et Mc24 hors service.
+    Trémies mobiles non incluses. Photos du 14–15/09/2026, 23:55 → 00:58.
+  </footer>
+</main>
+
+<div class="lb" id="lb" hidden>
+  <button class="close" id="x" aria-label="Fermer">&#10005;</button>
+  <img id="lbimg" alt="">
+</div>
+
+<script>
+const STATUS = {
+  ok:      {label:"Résistances et moteur OK",      short:"OK"},
+  heater:  {label:"Résistance HS",                 short:"Résistance"},
+  motor:   {label:"Moteur manquant",               short:"Moteur"},
+  nodryer: {label:"Trémie sans déshumidificateur", short:"Sans déshu."},
+  simple:  {label:"Trémie simple",                 short:"Simple"}
+};
+const DATA = [{"id":"Mc1","slug":"mc01","status":"ok","t":"14/09 23:55","note":""},{"id":"Mc2","slug":"mc02","status":"nodryer","t":"14/09 23:56","note":""},{"id":"Mc3","slug":"mc03","status":"nodryer","t":"14/09 23:56","note":""},{"id":"Mc4","slug":"mc04","status":"motor","t":"14/09 23:57","note":""},{"id":"Mc5","slug":"mc05","status":"simple","t":"14/09 23:57","note":""},{"id":"Mc6","slug":"mc06","status":"nodryer","t":"14/09 23:57","note":""},{"id":"Mc7","slug":"mc07","status":"motor","t":"14/09 23:58","note":""},{"id":"Mc8","slug":"mc08","status":"motor","t":"14/09 23:58","note":""},{"id":"Mc9","slug":"mc09","status":"simple","t":"14/09 23:59","note":""},{"id":"Mc10","slug":"mc10","status":"motor","t":"14/09 23:59","note":""},{"id":"Mc11","slug":"mc11","status":"ok","t":"14/09 23:59","note":""},{"id":"Mc12","slug":"mc12","status":"ok","t":"15/09 00:12","note":""},{"id":"Mc13","slug":"mc13","status":"simple","t":"15/09 00:12","note":""},{"id":"Mc14","slug":"mc14","status":"simple","t":"15/09 00:13","note":""},{"id":"Mc15","slug":"mc15","status":"nodryer","t":"15/09 00:13","note":""},{"id":"Mc16","slug":"mc16","status":"simple","t":"15/09 00:13","note":""},{"id":"Mc21","slug":"mc21","status":"ok","t":"15/09 00:43","note":""},{"id":"Mc22","slug":"mc22","status":"ok","t":"15/09 00:43","note":""},{"id":"Mc25","slug":"mc25","status":"heater","t":"15/09 00:44","note":""},{"id":"Mc26","slug":"mc26","status":"ok","t":"15/09 00:44","note":""},{"id":"Mc27","slug":"mc27","status":"ok","t":"15/09 00:44","note":""},{"id":"Mc28","slug":"mc28","status":"motor","t":"15/09 00:45","note":""},{"id":"Mc29","slug":"mc29","status":"ok","t":"15/09 00:55","note":""},{"id":"Mc30","slug":"mc30","status":"ok","t":"15/09 00:55","note":""},{"id":"Mc31","slug":"mc31","status":"simple","t":"15/09 00:55","note":""},{"id":"Mc32","slug":"mc32","status":"ok","t":"15/09 00:56","note":""},{"id":"Mc33","slug":"mc33","status":"motor","t":"15/09 00:56","note":""},{"id":"Mc34","slug":"mc34","status":"nodryer","t":"15/09 00:57","note":""},{"id":"Mc35","slug":"mc35","status":"ok","t":"15/09 00:57","note":""},{"id":"Mc36","slug":"mc36","status":"nodryer","t":"15/09 00:57","note":""},{"id":"200","slug":"200","status":"ok","t":"15/09 00:58","note":""}];
+
+const grid=document.getElementById('grid'), bar=document.getElementById('bar'), none=document.getElementById('none');
+let active='all';
+
+const n = DATA.reduce((a,m)=>(a[m.status]=(a[m.status]||0)+1,a),{});
+const set=(id,v)=>document.getElementById(id).textContent=v;
+set('k-all',DATA.length); set('k-ok',n.ok||0);
+set('k-bad',(n.motor||0)+(n.heater||0)); set('k-dry',(n.nodryer||0)+(n.simple||0));
+
+bar.innerHTML=[['all','Toutes',DATA.length],...Object.keys(STATUS).map(k=>[k,STATUS[k].short,n[k]||0])]
+  .map(([k,l,c])=>`<button class="chip" type="button" data-k="${k}" aria-pressed="${k==='all'}">${l}<span class="c">${c}</span></button>`).join('');
+
+bar.addEventListener('click',e=>{
+  const b=e.target.closest('.chip'); if(!b) return;
+  active=b.dataset.k;
+  bar.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed',String(c.dataset.k===active)));
+  draw();
+});
+
+function draw(){
+  const list = active==='all' ? DATA : DATA.filter(m=>m.status===active);
+  grid.innerHTML = list.map(m=>`<article class="card s-${m.status}">
+    <button class="shot" type="button" data-s="${m.slug}" aria-label="Agrandir la photo ${m.id}">
+      <img src="img/${m.slug}.jpg" alt="Trémie de la machine ${m.id}" loading="lazy" decoding="async">
+    </button>
+    <div class="meta">
+      <div class="r1"><span class="id">${m.id}</span><span class="tm">${m.t}</span></div>
+      <span class="st">${STATUS[m.status].label}</span>
+      ${m.note?`<p class="note">${m.note}</p>`:``}
+    </div>
+  </article>`).join('');
+  none.hidden = list.length>0;
+}
+draw();
+
+const lb=document.getElementById('lb'), lbimg=document.getElementById('lbimg');
+grid.addEventListener('click',e=>{
+  const b=e.target.closest('.shot'); if(!b) return;
+  lbimg.src='img/'+b.dataset.s+'.jpg'; lbimg.alt=b.querySelector('img').alt;
+  lb.hidden=false; document.getElementById('x').focus();
+});
+function shut(){ lb.hidden=true; lbimg.src=''; }
+document.getElementById('x').addEventListener('click',shut);
+lb.addEventListener('click',e=>{ if(e.target===lb) shut(); });
+document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&!lb.hidden) shut(); });
+</script>
+
+</body>
+</html>
