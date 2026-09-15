@@ -33,6 +33,7 @@
 
 *{box-sizing:border-box}
 [hidden]{display:none!important}
+img{max-width:100%}
 body{
   margin:0; background:var(--ground); color:var(--ink);
   font:400 15px/1.5 "IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
@@ -41,22 +42,22 @@ body{
 .mono{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
 
 header{background:var(--surface);border-bottom:1px solid var(--line)}
-.hd{max-width:1060px;margin:0 auto;padding:13px 16px}
+.hd{max-width:1060px;margin:0 auto;padding:calc(13px + env(safe-area-inset-top,0px)) 16px 13px}
 h1{
   font-family:"Barlow Semi Condensed","IBM Plex Sans",sans-serif;
   font-size:21px;font-weight:700;margin:0;line-height:1.15;text-wrap:balance;
 }
 .sub{display:block;margin-top:3px;font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);font-weight:500}
 
-main{max-width:1060px;margin:0 auto;padding-inline:16px;padding-block:16px 48px}
+main{max-width:1060px;margin:0 auto;padding-inline:16px;padding-block:16px calc(48px + env(safe-area-inset-bottom,0px))}
 
-.sum{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line-2);
+.sum{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:1px;background:var(--line-2);
      border:1px solid var(--line-2);border-radius:6px;overflow:hidden;margin-bottom:16px}
 .sum div{background:var(--surface);padding:9px 10px 10px}
 .sum b{display:block;font-family:"Barlow Semi Condensed",sans-serif;font-size:26px;font-weight:700;
        line-height:1;font-variant-numeric:tabular-nums}
 .sum span{display:block;font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3);margin-top:3px;line-height:1.25}
-.sum .g b{color:var(--ok)} .sum .r b{color:var(--crit)} .sum .a b{color:var(--warn)}
+.sum .g b{color:var(--ok)} .sum .r b{color:var(--crit)} .sum .a b{color:var(--warn)} .sum .y b{color:var(--accent)}
 
 .bar{display:flex;gap:6px;overflow-x:auto;padding-bottom:9px;margin-bottom:12px}
 .chip{flex:0 0 auto;cursor:pointer;border:1px solid var(--line);background:var(--surface);color:var(--ink-2);
@@ -64,7 +65,7 @@ main{max-width:1060px;margin:0 auto;padding-inline:16px;padding-block:16px 48px}
 .chip .c{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--ink-3);font-variant-numeric:tabular-nums}
 .chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--ground)}
 .chip[aria-pressed="true"] .c{color:var(--ground);opacity:.7}
-.chip:focus-visible,.shot:focus-visible,.close:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.chip:focus-visible,.shot:focus-visible,.armo:focus-visible,.close:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
 .grid{display:grid;grid-template-columns:1fr;gap:10px}
 @media(min-width:540px){.grid{grid-template-columns:repeat(2,1fr)}}
@@ -74,9 +75,16 @@ main{max-width:1060px;margin:0 auto;padding-inline:16px;padding-block:16px 48px}
       border-radius:6px;overflow:hidden;display:flex;flex-direction:column}
 .s-ok{--stripe:var(--ok)} .s-motor,.s-heater{--stripe:var(--crit)}
 .s-nodryer{--stripe:var(--warn)} .s-simple{--stripe:var(--quiet)}
+.s-pending{--stripe:var(--accent)} .s-unknown{--stripe:var(--ink-3)}
+.grp{grid-column:1/-1;margin:8px 0 0;padding-top:12px;border-top:1px solid var(--line);
+     font-family:"Barlow Semi Condensed",sans-serif;font-size:12px;font-weight:600;
+     letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3)}
+.grp:first-child{border-top:0;padding-top:0;margin-top:0}
 
 .shot{display:block;width:100%;aspect-ratio:4/3;border:0;padding:0;margin:0;background:var(--line-2);cursor:zoom-in;overflow:hidden}
-.shot img{width:100%;height:100%;object-fit:cover;object-position:50% 38%;display:block}
+.shot img{width:100%;height:100%;object-fit:cover;object-position:50% 0%;display:block}
+.noimg{width:100%;aspect-ratio:4/3;background:var(--line-2);display:flex;align-items:center;
+       justify-content:center;color:var(--ink-3);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
 
 .meta{padding:9px 11px 11px;display:flex;flex-direction:column;gap:5px}
 .r1{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
@@ -84,6 +92,10 @@ main{max-width:1060px;margin:0 auto;padding-inline:16px;padding-block:16px 48px}
 .tm{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--ink-3);font-variant-numeric:tabular-nums}
 .st{font-family:"Barlow Semi Condensed",sans-serif;font-size:14.5px;font-weight:600;line-height:1.2;color:var(--stripe)}
 .note{font-size:13px;color:var(--ink-2);margin:0}
+.armo{display:flex;align-items:center;gap:8px;width:100%;margin-top:3px;padding:8px 0 0;
+      background:none;border:0;border-top:1px dashed var(--line);cursor:zoom-in;text-align:left;
+      font:500 11px/1 inherit;color:var(--ink-3);letter-spacing:.07em;text-transform:uppercase}
+.armo img{width:48px;height:36px;object-fit:cover;border-radius:3px;display:block;flex:0 0 auto}
 
 .none{padding:32px 0;text-align:center;color:var(--ink-3);font-size:14px}
 footer{margin-top:22px;padding-top:12px;border-top:1px solid var(--line);font-size:11.5px;color:var(--ink-3);line-height:1.65}
@@ -97,16 +109,17 @@ footer{margin-top:22px;padding-top:12px;border-top:1px solid var(--line);font-si
 <header>
   <div class="hd">
     <h1>État des hoppers &mdash; Atelier A Injection</h1>
-    <span class="sub mono">Thermoplastic Tunisia &middot; 15/09/2026 &middot; 31 machines</span>
+    <span class="sub mono">Thermoplastic Tunisia &middot; 15/09/2026 &middot; 39 trémies &middot; 23 armoires</span>
   </div>
 </header>
 
 <main>
   <section class="sum" aria-label="Synthèse">
-    <div><b class="mono" id="k-all">31</b><span>Relevées</span></div>
-    <div class="g"><b class="mono" id="k-ok">12</b><span>Séchage OK</span></div>
+    <div><b class="mono" id="k-all">39</b><span>Machines</span></div>
+    <div class="g"><b class="mono" id="k-ok">14</b><span>Séchage OK</span></div>
     <div class="r"><b class="mono" id="k-bad">7</b><span>En panne</span></div>
-    <div class="a"><b class="mono" id="k-dry">12</b><span>Sans séchage</span></div>
+    <div class="a"><b class="mono" id="k-dry">14</b><span>Sans séchage</span></div>
+    <div class="y"><b class="mono" id="k-unk">3</b><span>État à relever</span></div>
   </section>
 
   <nav class="bar" id="bar" aria-label="Filtrer par état"></nav>
@@ -116,7 +129,7 @@ footer{margin-top:22px;padding-top:12px;border-top:1px solid var(--line);font-si
   <footer>
     « Résistances et moteur OK » = trémie séchante contrôlée, résistances et moteur en marche.<br>
     Le numéro en haut à droite de chaque photo est le repère machine. Mc23 et Mc24 hors service.
-    Trémies mobiles non incluses. Photos du 14–15/09/2026, 23:55 → 00:58.
+    Armoire électrique photographiée pour les 23 trémies équipées d'un déshumidificateur. Mob2 et Mob3 partagent une seule photo de trémie. État des trémies mobiles 1 à 3 non encore relevé. Photos du 14–15/09/2026, 23:55 → 04:26.
   </footer>
 </main>
 
@@ -131,9 +144,11 @@ const STATUS = {
   heater:  {label:"Résistance HS",                 short:"Résistance"},
   motor:   {label:"Moteur manquant",               short:"Moteur"},
   nodryer: {label:"Trémie sans déshumidificateur", short:"Sans déshu."},
-  simple:  {label:"Trémie simple",                 short:"Simple"}
+  simple:  {label:"Trémie simple",                 short:"Simple"},
+  pending: {label:"Neuve, en attente de mise en service", short:"Mise en service"},
+  unknown: {label:"État à relever",                short:"À relever"}
 };
-const DATA = [{"id":"Mc1","slug":"mc01","status":"ok","t":"14/09 23:55","note":""},{"id":"Mc2","slug":"mc02","status":"nodryer","t":"14/09 23:56","note":""},{"id":"Mc3","slug":"mc03","status":"nodryer","t":"14/09 23:56","note":""},{"id":"Mc4","slug":"mc04","status":"motor","t":"14/09 23:57","note":""},{"id":"Mc5","slug":"mc05","status":"simple","t":"14/09 23:57","note":""},{"id":"Mc6","slug":"mc06","status":"nodryer","t":"14/09 23:57","note":""},{"id":"Mc7","slug":"mc07","status":"motor","t":"14/09 23:58","note":""},{"id":"Mc8","slug":"mc08","status":"motor","t":"14/09 23:58","note":""},{"id":"Mc9","slug":"mc09","status":"simple","t":"14/09 23:59","note":""},{"id":"Mc10","slug":"mc10","status":"motor","t":"14/09 23:59","note":""},{"id":"Mc11","slug":"mc11","status":"ok","t":"14/09 23:59","note":""},{"id":"Mc12","slug":"mc12","status":"ok","t":"15/09 00:12","note":""},{"id":"Mc13","slug":"mc13","status":"simple","t":"15/09 00:12","note":""},{"id":"Mc14","slug":"mc14","status":"simple","t":"15/09 00:13","note":""},{"id":"Mc15","slug":"mc15","status":"nodryer","t":"15/09 00:13","note":""},{"id":"Mc16","slug":"mc16","status":"simple","t":"15/09 00:13","note":""},{"id":"Mc21","slug":"mc21","status":"ok","t":"15/09 00:43","note":""},{"id":"Mc22","slug":"mc22","status":"ok","t":"15/09 00:43","note":""},{"id":"Mc25","slug":"mc25","status":"heater","t":"15/09 00:44","note":""},{"id":"Mc26","slug":"mc26","status":"ok","t":"15/09 00:44","note":""},{"id":"Mc27","slug":"mc27","status":"ok","t":"15/09 00:44","note":""},{"id":"Mc28","slug":"mc28","status":"motor","t":"15/09 00:45","note":""},{"id":"Mc29","slug":"mc29","status":"ok","t":"15/09 00:55","note":""},{"id":"Mc30","slug":"mc30","status":"ok","t":"15/09 00:55","note":""},{"id":"Mc31","slug":"mc31","status":"simple","t":"15/09 00:55","note":""},{"id":"Mc32","slug":"mc32","status":"ok","t":"15/09 00:56","note":""},{"id":"Mc33","slug":"mc33","status":"motor","t":"15/09 00:56","note":""},{"id":"Mc34","slug":"mc34","status":"nodryer","t":"15/09 00:57","note":""},{"id":"Mc35","slug":"mc35","status":"ok","t":"15/09 00:57","note":""},{"id":"Mc36","slug":"mc36","status":"nodryer","t":"15/09 00:57","note":""},{"id":"200","slug":"200","status":"ok","t":"15/09 00:58","note":""}];
+const DATA = [{"id":"Mc1","slug":"mc01","status":"ok","t":"14/09 23:55","note":"","cab":"mc01"},{"id":"Mc2","slug":"mc02","status":"nodryer","t":"14/09 23:56","note":""},{"id":"Mc3","slug":"mc03","status":"nodryer","t":"14/09 23:56","note":""},{"id":"Mc4","slug":"mc04","status":"motor","t":"14/09 23:57","note":"","cab":"mc04"},{"id":"Mc5","slug":"mc05","status":"simple","t":"14/09 23:57","note":""},{"id":"Mc6","slug":"mc06","status":"nodryer","t":"14/09 23:57","note":""},{"id":"Mc7","slug":"mc07","status":"motor","t":"14/09 23:58","note":"","cab":"mc07"},{"id":"Mc8","slug":"mc08","status":"motor","t":"14/09 23:58","note":"","cab":"mc08"},{"id":"Mc9","slug":"mc09","status":"simple","t":"14/09 23:59","note":""},{"id":"Mc10","slug":"mc10","status":"motor","t":"14/09 23:59","note":"","cab":"mc10"},{"id":"Mc11","slug":"mc11","status":"ok","t":"14/09 23:59","note":"","cab":"mc11"},{"id":"Mc12","slug":"mc12","status":"ok","t":"15/09 00:12","note":"","cab":"mc12"},{"id":"Mc13","slug":"mc13","status":"simple","t":"15/09 00:12","note":""},{"id":"Mc14","slug":"mc14","status":"simple","t":"15/09 00:13","note":""},{"id":"Mc15","slug":"mc15","status":"nodryer","t":"15/09 00:13","note":""},{"id":"Mc16","slug":"mc16","status":"simple","t":"15/09 00:13","note":""},{"id":"Mc21","slug":"mc21","status":"ok","t":"15/09 00:43","note":"","cab":"mc21"},{"id":"Mc22","slug":"mc22","status":"ok","t":"15/09 00:43","note":"","cab":"mc22"},{"id":"Mc25","slug":"mc25","status":"heater","t":"15/09 00:44","note":"","cab":"mc25"},{"id":"Mc26","slug":"mc26","status":"ok","t":"15/09 00:44","note":"","cab":"mc26"},{"id":"Mc27","slug":"mc27","status":"ok","t":"15/09 00:44","note":"","cab":"mc27"},{"id":"Mc28","slug":"mc28","status":"motor","t":"15/09 00:45","note":"","cab":"mc28"},{"id":"Mc29","slug":"mc29","status":"ok","t":"15/09 00:55","note":"","cab":"mc29"},{"id":"Mc30","slug":"mc30","status":"ok","t":"15/09 00:55","note":"","cab":"mc30"},{"id":"Mc31","slug":"mc31","status":"simple","t":"15/09 00:55","note":""},{"id":"Mc32","slug":"mc32","status":"ok","t":"15/09 00:56","note":"","cab":"mc32"},{"id":"Mc33","slug":"mc33","status":"motor","t":"15/09 00:56","note":"","cab":"mc33"},{"id":"Mc34","slug":"mc34","status":"nodryer","t":"15/09 00:57","note":""},{"id":"Mc35","slug":"mc35","status":"ok","t":"15/09 00:57","note":"","cab":"mc35"},{"id":"Mc36","slug":"mc36","status":"nodryer","t":"15/09 00:57","note":""},{"id":"200","slug":"200","status":"ok","t":"15/09 00:58","note":"","cab":"200"},{"id":"Bat4","slug":"bat4","status":"simple","t":"15/09 03:46","note":""},{"id":"Bat5","slug":"bat5","status":"simple","t":"15/09 03:46","note":""},{"id":"Bat6","slug":"bat6","status":"ok","t":"15/09 03:46","note":"","cab":"bat6"},{"id":"Mob1","slug":"mob1","status":"unknown","t":"14/09 23:57","note":"","cab":"mob1","mob":1},{"id":"Mob2","slug":"mob23","status":"unknown","t":"15/09 00:58","note":"Photographiée avec Mob3.","cab":"mob2","mob":1},{"id":"Mob3","slug":"mob23","status":"unknown","t":"15/09 00:58","note":"Photographiée avec Mob2.","cab":"mob3","mob":1},{"id":"Mob4","slug":"mob4","status":"ok","t":"15/09 00:59","note":"Neuve, repérée NEW. Mise en service faite.","mob":1},{"id":"Mob5","slug":"mob5","status":"pending","t":"15/09 01:01","note":"Neuve, repérée NEW2.","mob":1}];
 
 const grid=document.getElementById('grid'), bar=document.getElementById('bar'), none=document.getElementById('none');
 let active='all';
@@ -142,6 +157,7 @@ const n = DATA.reduce((a,m)=>(a[m.status]=(a[m.status]||0)+1,a),{});
 const set=(id,v)=>document.getElementById(id).textContent=v;
 set('k-all',DATA.length); set('k-ok',n.ok||0);
 set('k-bad',(n.motor||0)+(n.heater||0)); set('k-dry',(n.nodryer||0)+(n.simple||0));
+set('k-unk',n.unknown||0);
 
 bar.innerHTML=[['all','Toutes',DATA.length],...Object.keys(STATUS).map(k=>[k,STATUS[k].short,n[k]||0])]
   .map(([k,l,c])=>`<button class="chip" type="button" data-k="${k}" aria-pressed="${k==='all'}">${l}<span class="c">${c}</span></button>`).join('');
@@ -153,26 +169,39 @@ bar.addEventListener('click',e=>{
   draw();
 });
 
-function draw(){
-  const list = active==='all' ? DATA : DATA.filter(m=>m.status===active);
-  grid.innerHTML = list.map(m=>`<article class="card s-${m.status}">
-    <button class="shot" type="button" data-s="${m.slug}" aria-label="Agrandir la photo ${m.id}">
+function card(m){
+  return `<article class="card s-${m.status}">
+    ${m.slug ? `<button class="shot" type="button" data-src="img/${m.slug}.jpg" aria-label="Agrandir la photo ${m.id}">
       <img src="img/${m.slug}.jpg" alt="Trémie de la machine ${m.id}" loading="lazy" decoding="async">
-    </button>
+    </button>` : `<div class="noimg">Photo à venir</div>`}
     <div class="meta">
-      <div class="r1"><span class="id">${m.id}</span><span class="tm">${m.t}</span></div>
+      <div class="r1"><span class="id">${m.id}</span><span class="tm">${m.t || "&mdash;"}</span></div>
       <span class="st">${STATUS[m.status].label}</span>
       ${m.note?`<p class="note">${m.note}</p>`:``}
+      ${m.cab?`<button class="armo" type="button" data-src="cab/${m.cab}.jpg" aria-label="Agrandir l'armoire électrique de ${m.id}">
+        <img src="cab/${m.cab}.jpg" alt="Armoire électrique de la machine ${m.id}" loading="lazy" decoding="async">Armoire électrique
+      </button>`:``}
     </div>
-  </article>`).join('');
+  </article>`;
+}
+
+function draw(){
+  const list = active==='all' ? DATA : DATA.filter(m=>m.status===active);
+  let fixed=false, mobile=false;
+  grid.innerHTML = list.map(m=>{
+    let head='';
+    if(m.mob && !mobile){ mobile=true; head='<h2 class="grp">Trémies mobiles</h2>'; }
+    else if(!m.mob && !fixed){ fixed=true; head='<h2 class="grp">Presses atelier A</h2>'; }
+    return head + card(m);
+  }).join('');
   none.hidden = list.length>0;
 }
 draw();
 
 const lb=document.getElementById('lb'), lbimg=document.getElementById('lbimg');
 grid.addEventListener('click',e=>{
-  const b=e.target.closest('.shot'); if(!b) return;
-  lbimg.src='img/'+b.dataset.s+'.jpg'; lbimg.alt=b.querySelector('img').alt;
+  const b=e.target.closest('.shot,.armo'); if(!b) return;
+  lbimg.src=b.dataset.src; lbimg.alt=b.querySelector('img').alt;
   lb.hidden=false; document.getElementById('x').focus();
 });
 function shut(){ lb.hidden=true; lbimg.src=''; }
